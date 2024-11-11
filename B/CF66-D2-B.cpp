@@ -1,58 +1,44 @@
 // O(n^2) can be improved to O(n) by using stack
-#include <bits/stdc++.h>
+#include <iostream>
 #include <vector>
 #include <algorithm>
 using namespace std;
 
-void solve(int t) {
+int main() {
     int n;
     cin >> n;
-    vector<int> v(n);
+    vector<int> heights(n);
     for (int i = 0; i < n; i++) {
-        cin >> v[i];
+        cin >> heights[i];
     }
 
-    int res = 0;
+    int max_watered_sections = 1;  // Initialize to 1 since minimum answer is 1
 
-    for(int i = 0; i < n; i++) {
-        int count = 1;
-        for(int j = i + 1; j < n; j++) {
-            if(v[j] >= v[j+1]) {
+    for (int i = 0; i < n; i++) {
+        int count = 1;  // Count the section itself
+
+        // Count leftwards
+        for (int j = i - 1; j >= 0; j--) {
+            if (heights[j] <= heights[j + 1]) {
                 count++;
             } else {
                 break;
             }
         }
-        for(int j = i - 1; j >= 0; j--) {
-            if(v[j] >= v[j-1]) {
+
+        // Count rightwards
+        for (int j = i + 1; j < n; j++) {
+            if (heights[j] <= heights[j - 1]) {
                 count++;
             } else {
                 break;
             }
         }
-        res = max(res, count);
+
+        // Update the maximum number of watered sections
+        max_watered_sections = max(max_watered_sections, count);
     }
 
-    cout << res << endl;
-}
-
-int main() {
-#ifndef ONLINE_JUDGE
-    ifstream inFile("input.txt");
-    ofstream outFile("output.txt");
-    if (!inFile || !outFile) {
-        cerr << "Error opening files." << endl;
-        return 1;
-    }
-    cin.rdbuf(inFile.rdbuf());
-    cout.rdbuf(outFile.rdbuf());
-#endif
-
-    int t=1;
-   // cin >> t;
-    for (int i = 1; i <= t; i++) {
-        solve(i);
-    }
-
+    cout << max_watered_sections << endl;
     return 0;
 }
