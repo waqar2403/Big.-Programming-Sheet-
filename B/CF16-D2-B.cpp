@@ -2,7 +2,6 @@
 #include <vector>
 #include <algorithm>
 using namespace std;
-
 void solve(int t) {
     int bsize,m;
     cin>>bsize>>m;
