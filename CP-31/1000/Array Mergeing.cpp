@@ -4,7 +4,6 @@
 #include <algorithm>
 #include <numeric>
 #define ll   long long
-//#define int long long
 using namespace std;
 void solve(int t) {
  int n;
